@@ -28,6 +28,9 @@ export class PostsService {
 
   findAll() {
     const ability = this.abilityService.ability;
+    if (!ability.can('read', 'Post')) {
+      return new UnauthorizedException('No have permission');
+    }
     return this.prismaService.post.findMany({
       where: {
         AND: [accessibleBy(ability, 'read').Post],

@@ -1,13 +1,19 @@
-### Create Admin User
+### Create Writer User
 POST http://localhost:3000/users
-Authorization: Bearer {{tokenReader}}
+Authorization: Bearer {{tokenAdmin}}
 Content-Type: application/json
 
 {
-    "name": "admin",
-    "email": "admin2@user.com",
-    "password": "admin",
-    "role": "ADMIN"
+    "name": "writer",
+    "email": "writer@email.com",
+    "password": "writer",
+    "role": "WRITER",
+    "permissions":[
+        {
+            "action": "read",
+            "resource": "User"
+        }
+    ]
 }
 
 ### Create Reader User
@@ -57,6 +63,20 @@ Content-Type: application/json
 
 
 ###
+# @name writerLogin
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "writer@email.com",
+    "password": "writer"
+}
+
+###
+@tokenWriter = {{ writerLogin.response.body.token }}
+
+
+###
 POST http://localhost:3000/posts
 Authorization: Bearer {{tokenReader}}
 Content-Type: application/json
@@ -76,3 +96,15 @@ Content-Type: application/json
 GET http://localhost:3000/posts/cmg3u36wg000399ciy7g5xi72
 Authorization: Bearer {{tokenReader}}
 Content-Type: application/json
+
+###
+GET http://localhost:3000/users
+Authorization: Bearer {{tokenWriter}}
+
+###
+GET http://localhost:3000/users
+Authorization: Bearer {{tokenAdmin}}
+
+###
+GET http://localhost:3000/users
+Authorization: Bearer {{tokenReader}}
