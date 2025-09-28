@@ -1,98 +1,101 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# NestJS Auth com Prisma, RBAC e ABAC (CASL)
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este é um projeto de exemplo que demonstra como implementar um sistema de autenticação e autorização em uma aplicação NestJS, utilizando:
+-   **Prisma** como ORM.
+-   **Role-Based Access Control (RBAC)** para controle de acesso baseado em papéis.
+-   **Attribute-Based Access Control (ABAC)** com **CASL** para um controle de permissões mais fino e granular.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Este projeto aplica os conceitos ensinados na aula de NestJS sobre autenticação e autorização da Full Cycle, disponível em: [https://www.youtube.com/watch?v=_ZyX4Vcofek](https://www.youtube.com/watch?v=_ZyX4Vcofek)
 
-## Description
+O repositório oficial do projeto pode ser encontrado em: [https://github.com/rubenfabio/fullcycle-nestjs-api-rest-auth-authorization](https://github.com/rubenfabio/fullcycle-nestjs-api-rest-auth-authorization)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Features
 
-## Project setup
+-   Autenticação baseada em JWT (Access Token).
+-   Controle de acesso por papéis (RBAC) com: `ADMIN`, `EDITOR`, `WRITER`, `READER`.
+-   Gerenciamento de permissões dinâmicas e baseadas em atributos (ABAC) com CASL.
+-   CRUD de Usuários e Posts.
+-   Uso do Prisma como ORM para interação com o banco de dados PostgreSQL.
+-   Configuração para desenvolvimento com Docker.
 
-```bash
-$ npm install
-```
+## Tecnologias Utilizadas
 
-## Compile and run the project
+-   [NestJS](https://nestjs.com/)
+-   [Prisma](https://www.prisma.io/)
+-   [PostgreSQL](https://www.postgresql.org/)
+-   [Docker](https://www.docker.com/)
+-   [CASL (Attribute-Based Access Control)](https://casl.js.org/)
+-   [JWT](https://jwt.io/)
+-   [TypeScript](https://www.typescriptlang.org/)
 
-```bash
-# development
-$ npm run start
+## Começando
 
-# watch mode
-$ npm run start:dev
+Siga as instruções abaixo para ter uma cópia do projeto rodando em sua máquina local para desenvolvimento e testes.
 
-# production mode
-$ npm run start:prod
-```
+### Pré-requisitos
 
-## Run tests
+-   [Node.js](https://nodejs.org/en/)
+-   [Docker](https://www.docker.com/get-started)
 
-```bash
-# unit tests
-$ npm run test
+### Instalação
 
-# e2e tests
-$ npm run test:e2e
+1.  Clone o repositório:
+    ```bash
+    git clone https://github.com/rubenfabio/fullcycle-nestjs-api-rest-auth-authorization.git
+    cd fullcycle-nestjs-api-rest-auth-authorization
+    ```
 
-# test coverage
-$ npm run test:cov
-```
+2.  Instale as dependências:
+    ```bash
+    npm install
+    ```
 
-## Deployment
+3.  Configure as variáveis de ambiente. Crie um arquivo `.env` na raiz do projeto e adicione as seguintes variáveis:
+    ```
+    # String de conexão do seu banco de dados PostgreSQL
+    DATABASE_URL="postgresql://user:password@localhost:5432/mydb?schema=public"
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+    # Chave secreta para a geração dos tokens JWT
+    JWT_SECRET="your-secret-key"
+    ```
+    *Substitua os valores conforme necessário.*
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+4.  Inicie o container do PostgreSQL com Docker:
+    ```bash
+    docker-compose up -d
+    ```
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+5.  Aplique as migrações do Prisma para criar as tabelas no banco de dados:
+    ```bash
+    npx prisma migrate dev
+    ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+6.  Inicie a aplicação em modo de desenvolvimento:
+    ```bash
+    npm run start:dev
+    ```
 
-## Resources
+A aplicação estará disponível em `http://localhost:3000`.
 
-Check out a few resources that may come in handy when working with NestJS:
+## API Endpoints
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+O arquivo `api.http` na raiz do projeto contém exemplos de requisições para os principais endpoints da API. Você pode usá-lo com a extensão [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) do VS Code.
 
-## Support
+### Principais Endpoints
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+-   `POST /auth/login`: Autentica um usuário e retorna um token JWT.
+-   `GET /users`, `POST /users`: Gerenciamento de usuários.
+-   `GET /posts`, `POST /posts`: Gerenciamento de posts.
 
-## Stay in touch
+## Autenticação e Autorização
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+A segurança da aplicação é implementada com uma abordagem em camadas, combinando os conceitos de RBAC e ABAC.
 
-## License
+-   **Autenticação**: O acesso às rotas protegidas é controlado pelo `AuthGuard`, que valida o JWT (JSON Web Token) enviado no cabeçalho `Authorization`.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+-   **RBAC (Role-Based Access Control)**: Após a autenticação, o `RoleGuard` entra em ação. Ele verifica se o usuário possui o `role` (papel) necessário para acessar um determinado endpoint. Os papéis definidos no sistema são `ADMIN`, `EDITOR`, `WRITER` e `READER`. Essa é uma forma de controle de acesso mais ampla.
+
+-   **ABAC (Attribute-Based Access Control) com CASL**: Para um controle mais granular, o projeto utiliza a biblioteca CASL. O ABAC não se baseia apenas no papel do usuário, mas também em atributos (do usuário, do recurso sendo acessado, do ambiente, etc.).
+    -   No `CaslAbilityService`, as "habilidades" (abilities) de cada usuário são definidas. Por exemplo, um usuário com o papel `WRITER` pode ter permissão para `criar` e `ler` posts, mas só pode `atualizar` os posts que ele mesmo criou.
+    -   Essa lógica permite regras complexas como: "Permitir que um usuário `READER` veja apenas os posts publicados (`published: true`)" ou "Permitir que um `ADMIN` gerencie todos os recursos (`manage all`)".
+    -   Essa verificação é feita dinamicamente nos guards ou diretamente nos serviços, garantindo que as políticas de acesso sejam flexíveis e centralizadas.
